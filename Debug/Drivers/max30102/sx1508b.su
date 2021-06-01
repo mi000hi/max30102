@@ -1,0 +1,11 @@
+sx1508b.c:26:6:sx1508b_setup_communication	16	static
+sx1508b.c:42:6:sx1508b_read_reg	16	static
+sx1508b.c:53:6:sx1508b_write_reg	16	static
+sx1508b.c:62:6:sx1508b_configure_clock	24	static
+sx1508b.c:81:6:sx1508b_configure_pwm	24	static
+sx1508b.c:106:6:sx1508b_configure_pwm_pin	24	static
+sx1508b.c:162:6:sx1508b_set_pwm_intensity	32	static
+sx1508b.c:206:6:sx1508b_set_pin	24	static
+sx1508b.c:224:6:sx1508b_read_pin	24	static
+sx1508b.c:238:6:sx1508b_toggle_pin	24	static
+sx1508b.c:255:6:sx1508b_set_pin_direction	24	static
