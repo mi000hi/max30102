@@ -151,6 +151,7 @@ int main(void) {
 	}
 
 	// TODO: convert data to heartrate count
+	// TODO: put sensor back to sleep mode
 
 
 	/* USER CODE END 2 */

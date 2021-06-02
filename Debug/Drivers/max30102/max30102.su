@@ -3,7 +3,7 @@ max30102.c:41:6:max30102_read_reg	16	static
 max30102.c:52:6:max30102_write_reg	16	static
 max30102.c:64:6:max30102_setSingleBit	24	static
 max30102.c:80:6:max30102_setupForMeasurement	16	static
-max30102.c:95:6:max30102_setMeasurementMode	24	static
-max30102.c:109:6:max30102_startHeartrateMeasurement	8	static
-max30102.c:121:6:max30102_stopHeartrateMeasurement	8	static
-max30102.c:131:6:max30102_waitAndGetHeartrateSamples	24	static
+max30102.c:100:6:max30102_setMeasurementMode	24	static
+max30102.c:114:6:max30102_startHeartrateMeasurement	8	static
+max30102.c:126:6:max30102_stopHeartrateMeasurement	8	static
+max30102.c:136:6:max30102_waitAndGetHeartrateSamples	24	static

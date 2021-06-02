@@ -35,8 +35,8 @@
 #define MAX30102_REG_FIFO_CONF					0x08	/**< fifo configuration **/
 #define MAX30102_REG_MODE_CONF					0x09	/**< mode configuration **/
 #define MAX30102_REG_SPO2_CONF					0x0A	/**< spo2 configuration **/
-#define MAX30102_REG_LED_PULSE_AMP_MSB			0x0C	/**< led pulse amplitude configuration, msb **/ //TODO: verify lsb and msb
-#define MAX30102_REG_LED_PULSE_AMP_LSB			0x0D	/**< led pulse amplitude configuration, lsb **/
+#define MAX30102_REG_LED1_AMP					0x0C	/**< led pulse amplitude configuration, msb **/
+#define MAX30102_REG_LED2_AMP					0x0D	/**< led pulse amplitude configuration, lsb **/
 #define MAX30102_REG_MULTI_LED_MODE_CTRL_MSB	0x11	/**< multi led mode control register, msb **/
 #define MAX30102_REG_MULTI_LED_MODE_CTRL_LSB	0x12	/**< multi led mode control register, lsb **/
 

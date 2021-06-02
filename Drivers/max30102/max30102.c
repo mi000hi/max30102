@@ -84,12 +84,17 @@ void max30102_setupForMeasurement() {
 	max30102_comm.write(MAX30102_REG_OVERFLOW_COUNTER, &data, 1);
 	max30102_comm.write(MAX30102_REG_FIFO_READ_PTR, &data, 1);
 
-	// set pulse widthto 411us
-	// TODO: theoretically no impact on HR measurement, only spo2
+	// set pulse width to 411us
 	data = 0x00;
 	max30102_comm.read(MAX30102_REG_SPO2_CONF, &data, 1);
 	data = (data & 0b11111100) | 0b11;
 	max30102_comm.write(MAX30102_REG_SPO2_CONF, &data, 1);
+
+	// set LED current to 12.6mA
+	data = 0x3F;
+	max30102_comm.write(MAX30102_REG_LED1_AMP, &data, 1); // red led
+	max30102_comm.write(MAX30102_REG_LED2_AMP, &data, 1); // ir led
+
 }
 
 void max30102_setMeasurementMode(uint8_t mode) {

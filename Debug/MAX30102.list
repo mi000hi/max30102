@@ -5,25 +5,25 @@ Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .isr_vector   00000188  08000000  08000000  00010000  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  1 .text         000033fc  08000188  08000188  00010188  2**2
+  1 .text         00003418  08000188  08000188  00010188  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000040  08003584  08003584  00013584  2**2
+  2 .rodata       00000040  080035a0  080035a0  000135a0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  080035c4  080035c4  00020010  2**0
+  3 .ARM.extab    00000000  080035e0  080035e0  00020010  2**0
                   CONTENTS
-  4 .ARM          00000000  080035c4  080035c4  00020010  2**0
+  4 .ARM          00000000  080035e0  080035e0  00020010  2**0
                   CONTENTS
-  5 .preinit_array 00000000  080035c4  080035c4  00020010  2**0
+  5 .preinit_array 00000000  080035e0  080035e0  00020010  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  080035c4  080035c4  000135c4  2**2
+  6 .init_array   00000004  080035e0  080035e0  000135e0  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  080035c8  080035c8  000135c8  2**2
+  7 .fini_array   00000004  080035e4  080035e4  000135e4  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         00000010  20000000  080035cc  00020000  2**2
+  8 .data         00000010  20000000  080035e8  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          00000100  20000010  080035dc  00020010  2**2
+  9 .bss          00000100  20000010  080035f8  00020010  2**2
                   ALLOC
- 10 ._user_heap_stack 00000600  20000110  080035dc  00020110  2**0
+ 10 ._user_heap_stack 00000600  20000110  080035f8  00020110  2**0
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00020010  2**0
                   CONTENTS, READONLY
@@ -37,11 +37,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  000265e6  00000000  00000000  00034b88  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000ec7c  00000000  00000000  0005b16e  2**0
+ 17 .debug_line   0000ec8b  00000000  00000000  0005b16e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000e7f93  00000000  00000000  00069dea  2**0
+ 18 .debug_str    000e7f81  00000000  00000000  00069df9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  00151d7d  2**0
+ 19 .comment      00000053  00000000  00000000  00151d7a  2**0
                   CONTENTS, READONLY
  20 .debug_frame  00003400  00000000  00000000  00151dd0  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -62,7 +62,7 @@ Disassembly of section .text:
  800019e:	bd10      	pop	{r4, pc}
  80001a0:	20000010 	.word	0x20000010
  80001a4:	00000000 	.word	0x00000000
- 80001a8:	0800356c 	.word	0x0800356c
+ 80001a8:	08003588 	.word	0x08003588
 
 080001ac <frame_dummy>:
  80001ac:	b508      	push	{r3, lr}
@@ -74,7 +74,7 @@ Disassembly of section .text:
  80001ba:	bd08      	pop	{r3, pc}
  80001bc:	00000000 	.word	0x00000000
  80001c0:	20000014 	.word	0x20000014
- 80001c4:	0800356c 	.word	0x0800356c
+ 80001c4:	08003588 	.word	0x08003588
 
 080001c8 <main>:
 
@@ -144,7 +144,7 @@ int main(void) {
 	/* setup sx1508b gipo extender and check all configs */
 	sx1508b_setup_communication(&sx1508b_configs);
  8000206:	4819      	ldr	r0, [pc, #100]	; (800026c <main+0xa4>)
- 8000208:	f003 f94c 	bl	80034a4 <sx1508b_setup_communication>
+ 8000208:	f003 f95a 	bl	80034c0 <sx1508b_setup_communication>
 	sx1508b_configure();
  800020c:	f000 fa22 	bl	8000654 <sx1508b_configure>
 
@@ -155,7 +155,7 @@ int main(void) {
 	/* read from the FIFO queue */
 	max30102_setMeasurementMode(MAX30102_MODE_HEART_RATE);
  8000216:	2002      	movs	r0, #2
- 8000218:	f003 f8fe 	bl	8003418 <max30102_setMeasurementMode>
+ 8000218:	f003 f90c 	bl	8003434 <max30102_setMeasurementMode>
 	max30102_setupForMeasurement();
  800021c:	f003 f8cc 	bl	80033b8 <max30102_setupForMeasurement>
 
@@ -182,7 +182,7 @@ int main(void) {
 		max30102_waitAndGetHeartrateSamples(buffer);
  8000246:	1d3b      	adds	r3, r7, #4
  8000248:	4618      	mov	r0, r3
- 800024a:	f003 f90d 	bl	8003468 <max30102_waitAndGetHeartrateSamples>
+ 800024a:	f003 f91b 	bl	8003484 <max30102_waitAndGetHeartrateSamples>
 	while(HAL_GetTick() < endTime) {
  800024e:	f000 fc71 	bl	8000b34 <HAL_GetTick>
  8000252:	4602      	mov	r2, r0
@@ -219,7 +219,7 @@ void SystemClock_Config(void) {
  8000282:	2244      	movs	r2, #68	; 0x44
  8000284:	2100      	movs	r1, #0
  8000286:	4618      	mov	r0, r3
- 8000288:	f003 f968 	bl	800355c <memset>
+ 8000288:	f003 f976 	bl	8003578 <memset>
 	RCC_ClkInitTypeDef RCC_ClkInitStruct = { 0 };
  800028c:	f107 0388 	add.w	r3, r7, #136	; 0x88
  8000290:	2200      	movs	r2, #0
@@ -233,7 +233,7 @@ void SystemClock_Config(void) {
  800029e:	2288      	movs	r2, #136	; 0x88
  80002a0:	2100      	movs	r1, #0
  80002a2:	4618      	mov	r0, r3
- 80002a4:	f003 f95a 	bl	800355c <memset>
+ 80002a4:	f003 f968 	bl	8003578 <memset>
 
 	/** Initializes the RCC Oscillators according to the specified parameters
 	 * in the RCC_OscInitTypeDef structure.
@@ -1016,7 +1016,7 @@ void max30102_readInterruptPin(uint8_t *buf) {
  8000744:	b2db      	uxtb	r3, r3
  8000746:	6879      	ldr	r1, [r7, #4]
  8000748:	4618      	mov	r0, r3
- 800074a:	f002 febf 	bl	80034cc <sx1508b_read_pin>
+ 800074a:	f002 fecd 	bl	80034e8 <sx1508b_read_pin>
 }
  800074e:	bf00      	nop
  8000750:	3708      	adds	r7, #8
@@ -1722,7 +1722,7 @@ LoopFillZerobss:
 
 /* Call static constructors */
     bl __libc_init_array
- 8000a3e:	f002 fd69 	bl	8003514 <__libc_init_array>
+ 8000a3e:	f002 fd77 	bl	8003530 <__libc_init_array>
 /* Call the application's entry point.*/
 	bl	main
  8000a42:	f7ff fbc1 	bl	80001c8 <main>
@@ -1735,7 +1735,7 @@ LoopForever:
   ldr   sp, =_estack    /* Set stack pointer */
  8000a48:	20018000 	.word	0x20018000
 	ldr	r3, =_sidata
- 8000a4c:	080035cc 	.word	0x080035cc
+ 8000a4c:	080035e8 	.word	0x080035e8
 	ldr	r0, =_sdata
  8000a50:	20000000 	.word	0x20000000
 	ldr	r3, =_edata
@@ -5587,7 +5587,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
  8001ffc:	e011      	b.n	8002022 <HAL_RCC_OscConfig+0x2ba>
  8001ffe:	bf00      	nop
  8002000:	40021000 	.word	0x40021000
- 8002004:	08003584 	.word	0x08003584
+ 8002004:	080035a0 	.word	0x080035a0
  8002008:	20000004 	.word	0x20000004
  800200c:	20000008 	.word	0x20000008
         {
@@ -6845,7 +6845,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  80026e2:	bf00      	nop
  80026e4:	40022000 	.word	0x40022000
  80026e8:	40021000 	.word	0x40021000
- 80026ec:	08003584 	.word	0x08003584
+ 80026ec:	080035a0 	.word	0x080035a0
  80026f0:	20000004 	.word	0x20000004
  80026f4:	20000008 	.word	0x20000008
 
@@ -7050,7 +7050,7 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
  80027fc:	4770      	bx	lr
  80027fe:	bf00      	nop
  8002800:	40021000 	.word	0x40021000
- 8002804:	08003594 	.word	0x08003594
+ 8002804:	080035b0 	.word	0x080035b0
  8002808:	00f42400 	.word	0x00f42400
  800280c:	007a1200 	.word	0x007a1200
 
@@ -9286,34 +9286,33 @@ void max30102_setupForMeasurement() {
  80033be:	2300      	movs	r3, #0
  80033c0:	71fb      	strb	r3, [r7, #7]
 	max30102_comm.write(MAX30102_REG_FIFO_WRITE_PTR, &data, 1);
- 80033c2:	4b14      	ldr	r3, [pc, #80]	; (8003414 <max30102_setupForMeasurement+0x5c>)
+ 80033c2:	4b1b      	ldr	r3, [pc, #108]	; (8003430 <max30102_setupForMeasurement+0x78>)
  80033c4:	681b      	ldr	r3, [r3, #0]
  80033c6:	1df9      	adds	r1, r7, #7
  80033c8:	2201      	movs	r2, #1
  80033ca:	2004      	movs	r0, #4
  80033cc:	4798      	blx	r3
 	max30102_comm.write(MAX30102_REG_OVERFLOW_COUNTER, &data, 1);
- 80033ce:	4b11      	ldr	r3, [pc, #68]	; (8003414 <max30102_setupForMeasurement+0x5c>)
+ 80033ce:	4b18      	ldr	r3, [pc, #96]	; (8003430 <max30102_setupForMeasurement+0x78>)
  80033d0:	681b      	ldr	r3, [r3, #0]
  80033d2:	1df9      	adds	r1, r7, #7
  80033d4:	2201      	movs	r2, #1
  80033d6:	2005      	movs	r0, #5
  80033d8:	4798      	blx	r3
 	max30102_comm.write(MAX30102_REG_FIFO_READ_PTR, &data, 1);
- 80033da:	4b0e      	ldr	r3, [pc, #56]	; (8003414 <max30102_setupForMeasurement+0x5c>)
+ 80033da:	4b15      	ldr	r3, [pc, #84]	; (8003430 <max30102_setupForMeasurement+0x78>)
  80033dc:	681b      	ldr	r3, [r3, #0]
  80033de:	1df9      	adds	r1, r7, #7
  80033e0:	2201      	movs	r2, #1
  80033e2:	2006      	movs	r0, #6
  80033e4:	4798      	blx	r3
 
-	// set pulse widthto 411us
-	// TODO: theoretically no impact on HR measurement, only spo2
+	// set pulse width to 411us
 	data = 0x00;
  80033e6:	2300      	movs	r3, #0
  80033e8:	71fb      	strb	r3, [r7, #7]
 	max30102_comm.read(MAX30102_REG_SPO2_CONF, &data, 1);
- 80033ea:	4b0a      	ldr	r3, [pc, #40]	; (8003414 <max30102_setupForMeasurement+0x5c>)
+ 80033ea:	4b11      	ldr	r3, [pc, #68]	; (8003430 <max30102_setupForMeasurement+0x78>)
  80033ec:	685b      	ldr	r3, [r3, #4]
  80033ee:	1df9      	adds	r1, r7, #7
  80033f0:	2201      	movs	r2, #1
@@ -9325,253 +9324,273 @@ void max30102_setupForMeasurement() {
  80033fc:	b2db      	uxtb	r3, r3
  80033fe:	71fb      	strb	r3, [r7, #7]
 	max30102_comm.write(MAX30102_REG_SPO2_CONF, &data, 1);
- 8003400:	4b04      	ldr	r3, [pc, #16]	; (8003414 <max30102_setupForMeasurement+0x5c>)
+ 8003400:	4b0b      	ldr	r3, [pc, #44]	; (8003430 <max30102_setupForMeasurement+0x78>)
  8003402:	681b      	ldr	r3, [r3, #0]
  8003404:	1df9      	adds	r1, r7, #7
  8003406:	2201      	movs	r2, #1
  8003408:	200a      	movs	r0, #10
  800340a:	4798      	blx	r3
-}
- 800340c:	bf00      	nop
- 800340e:	3708      	adds	r7, #8
- 8003410:	46bd      	mov	sp, r7
- 8003412:	bd80      	pop	{r7, pc}
- 8003414:	200000fc 	.word	0x200000fc
 
-08003418 <max30102_setMeasurementMode>:
+	// set LED current to 12.6mA
+	data = 0x3F;
+ 800340c:	233f      	movs	r3, #63	; 0x3f
+ 800340e:	71fb      	strb	r3, [r7, #7]
+	max30102_comm.write(MAX30102_REG_LED1_AMP, &data, 1); // red led
+ 8003410:	4b07      	ldr	r3, [pc, #28]	; (8003430 <max30102_setupForMeasurement+0x78>)
+ 8003412:	681b      	ldr	r3, [r3, #0]
+ 8003414:	1df9      	adds	r1, r7, #7
+ 8003416:	2201      	movs	r2, #1
+ 8003418:	200c      	movs	r0, #12
+ 800341a:	4798      	blx	r3
+	max30102_comm.write(MAX30102_REG_LED2_AMP, &data, 1); // ir led
+ 800341c:	4b04      	ldr	r3, [pc, #16]	; (8003430 <max30102_setupForMeasurement+0x78>)
+ 800341e:	681b      	ldr	r3, [r3, #0]
+ 8003420:	1df9      	adds	r1, r7, #7
+ 8003422:	2201      	movs	r2, #1
+ 8003424:	200d      	movs	r0, #13
+ 8003426:	4798      	blx	r3
+
+}
+ 8003428:	bf00      	nop
+ 800342a:	3708      	adds	r7, #8
+ 800342c:	46bd      	mov	sp, r7
+ 800342e:	bd80      	pop	{r7, pc}
+ 8003430:	200000fc 	.word	0x200000fc
+
+08003434 <max30102_setMeasurementMode>:
 
 void max30102_setMeasurementMode(uint8_t mode) {
- 8003418:	b580      	push	{r7, lr}
- 800341a:	b084      	sub	sp, #16
- 800341c:	af00      	add	r7, sp, #0
- 800341e:	4603      	mov	r3, r0
- 8003420:	71fb      	strb	r3, [r7, #7]
+ 8003434:	b580      	push	{r7, lr}
+ 8003436:	b084      	sub	sp, #16
+ 8003438:	af00      	add	r7, sp, #0
+ 800343a:	4603      	mov	r3, r0
+ 800343c:	71fb      	strb	r3, [r7, #7]
 	// make sure the mode is only 3 bits
 	mode = mode & 0b111;
- 8003422:	79fb      	ldrb	r3, [r7, #7]
- 8003424:	f003 0307 	and.w	r3, r3, #7
- 8003428:	71fb      	strb	r3, [r7, #7]
+ 800343e:	79fb      	ldrb	r3, [r7, #7]
+ 8003440:	f003 0307 	and.w	r3, r3, #7
+ 8003444:	71fb      	strb	r3, [r7, #7]
 
 	// update the measurement mode
 	uint8_t data;
 	max30102_comm.read(MAX30102_REG_MODE_CONF, &data, 1);
- 800342a:	4b0e      	ldr	r3, [pc, #56]	; (8003464 <max30102_setMeasurementMode+0x4c>)
- 800342c:	685b      	ldr	r3, [r3, #4]
- 800342e:	f107 010f 	add.w	r1, r7, #15
- 8003432:	2201      	movs	r2, #1
- 8003434:	2009      	movs	r0, #9
- 8003436:	4798      	blx	r3
+ 8003446:	4b0e      	ldr	r3, [pc, #56]	; (8003480 <max30102_setMeasurementMode+0x4c>)
+ 8003448:	685b      	ldr	r3, [r3, #4]
+ 800344a:	f107 010f 	add.w	r1, r7, #15
+ 800344e:	2201      	movs	r2, #1
+ 8003450:	2009      	movs	r0, #9
+ 8003452:	4798      	blx	r3
 	data = (data & 0b11000000) | mode;
- 8003438:	7bfb      	ldrb	r3, [r7, #15]
- 800343a:	b25b      	sxtb	r3, r3
- 800343c:	f023 033f 	bic.w	r3, r3, #63	; 0x3f
- 8003440:	b25a      	sxtb	r2, r3
- 8003442:	f997 3007 	ldrsb.w	r3, [r7, #7]
- 8003446:	4313      	orrs	r3, r2
- 8003448:	b25b      	sxtb	r3, r3
- 800344a:	b2db      	uxtb	r3, r3
- 800344c:	73fb      	strb	r3, [r7, #15]
+ 8003454:	7bfb      	ldrb	r3, [r7, #15]
+ 8003456:	b25b      	sxtb	r3, r3
+ 8003458:	f023 033f 	bic.w	r3, r3, #63	; 0x3f
+ 800345c:	b25a      	sxtb	r2, r3
+ 800345e:	f997 3007 	ldrsb.w	r3, [r7, #7]
+ 8003462:	4313      	orrs	r3, r2
+ 8003464:	b25b      	sxtb	r3, r3
+ 8003466:	b2db      	uxtb	r3, r3
+ 8003468:	73fb      	strb	r3, [r7, #15]
 	max30102_comm.write(MAX30102_REG_MODE_CONF, &data, 1);
- 800344e:	4b05      	ldr	r3, [pc, #20]	; (8003464 <max30102_setMeasurementMode+0x4c>)
- 8003450:	681b      	ldr	r3, [r3, #0]
- 8003452:	f107 010f 	add.w	r1, r7, #15
- 8003456:	2201      	movs	r2, #1
- 8003458:	2009      	movs	r0, #9
- 800345a:	4798      	blx	r3
+ 800346a:	4b05      	ldr	r3, [pc, #20]	; (8003480 <max30102_setMeasurementMode+0x4c>)
+ 800346c:	681b      	ldr	r3, [r3, #0]
+ 800346e:	f107 010f 	add.w	r1, r7, #15
+ 8003472:	2201      	movs	r2, #1
+ 8003474:	2009      	movs	r0, #9
+ 8003476:	4798      	blx	r3
 }
- 800345c:	bf00      	nop
- 800345e:	3710      	adds	r7, #16
- 8003460:	46bd      	mov	sp, r7
- 8003462:	bd80      	pop	{r7, pc}
- 8003464:	200000fc 	.word	0x200000fc
+ 8003478:	bf00      	nop
+ 800347a:	3710      	adds	r7, #16
+ 800347c:	46bd      	mov	sp, r7
+ 800347e:	bd80      	pop	{r7, pc}
+ 8003480:	200000fc 	.word	0x200000fc
 
-08003468 <max30102_waitAndGetHeartrateSamples>:
+08003484 <max30102_waitAndGetHeartrateSamples>:
 /**
  * waits until the FIFO queue as almost full, and then reads all 32 bytes
  *
  * @param buf		the buffer where the data is written to
  */
 void max30102_waitAndGetHeartrateSamples(uint8_t *buf) {
- 8003468:	b580      	push	{r7, lr}
- 800346a:	b084      	sub	sp, #16
- 800346c:	af00      	add	r7, sp, #0
- 800346e:	6078      	str	r0, [r7, #4]
+ 8003484:	b580      	push	{r7, lr}
+ 8003486:	b084      	sub	sp, #16
+ 8003488:	af00      	add	r7, sp, #0
+ 800348a:	6078      	str	r0, [r7, #4]
 
 	// wait for the A_FULL interrupt
 	uint8_t data;
 	while(1) {
 		max30102_comm.readInterruptPin(&data);
- 8003470:	4b0b      	ldr	r3, [pc, #44]	; (80034a0 <max30102_waitAndGetHeartrateSamples+0x38>)
- 8003472:	689b      	ldr	r3, [r3, #8]
- 8003474:	f107 020f 	add.w	r2, r7, #15
- 8003478:	4610      	mov	r0, r2
- 800347a:	4798      	blx	r3
+ 800348c:	4b0b      	ldr	r3, [pc, #44]	; (80034bc <max30102_waitAndGetHeartrateSamples+0x38>)
+ 800348e:	689b      	ldr	r3, [r3, #8]
+ 8003490:	f107 020f 	add.w	r2, r7, #15
+ 8003494:	4610      	mov	r0, r2
+ 8003496:	4798      	blx	r3
 
 		// break if we have an interrupt
 		// TODO: check if interrupt is of type A_FULL, only needed if other interrupts are active
 		if(data == 0) break;
- 800347c:	7bfb      	ldrb	r3, [r7, #15]
- 800347e:	2b00      	cmp	r3, #0
- 8003480:	d003      	beq.n	800348a <max30102_waitAndGetHeartrateSamples+0x22>
+ 8003498:	7bfb      	ldrb	r3, [r7, #15]
+ 800349a:	2b00      	cmp	r3, #0
+ 800349c:	d003      	beq.n	80034a6 <max30102_waitAndGetHeartrateSamples+0x22>
 
 		// TODO: change/remove delay time
 		HAL_Delay(1);
- 8003482:	2001      	movs	r0, #1
- 8003484:	f7fd fb62 	bl	8000b4c <HAL_Delay>
+ 800349e:	2001      	movs	r0, #1
+ 80034a0:	f7fd fb54 	bl	8000b4c <HAL_Delay>
 	while(1) {
- 8003488:	e7f2      	b.n	8003470 <max30102_waitAndGetHeartrateSamples+0x8>
+ 80034a4:	e7f2      	b.n	800348c <max30102_waitAndGetHeartrateSamples+0x8>
 		if(data == 0) break;
- 800348a:	bf00      	nop
+ 80034a6:	bf00      	nop
 	}
 
 	// read the samples from the FIFO
 	// TODO: reads the whole fifo, might need/want to read less bytes
 	max30102_comm.read(MAX30102_REG_FIFO_DATA, buf, 32);
- 800348c:	4b04      	ldr	r3, [pc, #16]	; (80034a0 <max30102_waitAndGetHeartrateSamples+0x38>)
- 800348e:	685b      	ldr	r3, [r3, #4]
- 8003490:	2220      	movs	r2, #32
- 8003492:	6879      	ldr	r1, [r7, #4]
- 8003494:	2007      	movs	r0, #7
- 8003496:	4798      	blx	r3
+ 80034a8:	4b04      	ldr	r3, [pc, #16]	; (80034bc <max30102_waitAndGetHeartrateSamples+0x38>)
+ 80034aa:	685b      	ldr	r3, [r3, #4]
+ 80034ac:	2220      	movs	r2, #32
+ 80034ae:	6879      	ldr	r1, [r7, #4]
+ 80034b0:	2007      	movs	r0, #7
+ 80034b2:	4798      	blx	r3
 
 }
- 8003498:	bf00      	nop
- 800349a:	3710      	adds	r7, #16
- 800349c:	46bd      	mov	sp, r7
- 800349e:	bd80      	pop	{r7, pc}
- 80034a0:	200000fc 	.word	0x200000fc
+ 80034b4:	bf00      	nop
+ 80034b6:	3710      	adds	r7, #16
+ 80034b8:	46bd      	mov	sp, r7
+ 80034ba:	bd80      	pop	{r7, pc}
+ 80034bc:	200000fc 	.word	0x200000fc
 
-080034a4 <sx1508b_setup_communication>:
+080034c0 <sx1508b_setup_communication>:
  *
  * @param  setup   user defined setup struct (ptr)
  * @retval       	interface status (MANDATORY: return 0 -> no Error) TODO
  *
  */
 void sx1508b_setup_communication(sx1508b_t *configs) {
- 80034a4:	b480      	push	{r7}
- 80034a6:	b083      	sub	sp, #12
- 80034a8:	af00      	add	r7, sp, #0
- 80034aa:	6078      	str	r0, [r7, #4]
+ 80034c0:	b480      	push	{r7}
+ 80034c2:	b083      	sub	sp, #12
+ 80034c4:	af00      	add	r7, sp, #0
+ 80034c6:	6078      	str	r0, [r7, #4]
 
 	/* Save pointer to function globally */
 	sx1508b_comm.read = configs->comm.read;
- 80034ac:	687b      	ldr	r3, [r7, #4]
- 80034ae:	685b      	ldr	r3, [r3, #4]
- 80034b0:	4a05      	ldr	r2, [pc, #20]	; (80034c8 <sx1508b_setup_communication+0x24>)
- 80034b2:	6053      	str	r3, [r2, #4]
+ 80034c8:	687b      	ldr	r3, [r7, #4]
+ 80034ca:	685b      	ldr	r3, [r3, #4]
+ 80034cc:	4a05      	ldr	r2, [pc, #20]	; (80034e4 <sx1508b_setup_communication+0x24>)
+ 80034ce:	6053      	str	r3, [r2, #4]
 	sx1508b_comm.write = configs->comm.write;
- 80034b4:	687b      	ldr	r3, [r7, #4]
- 80034b6:	681b      	ldr	r3, [r3, #0]
- 80034b8:	4a03      	ldr	r2, [pc, #12]	; (80034c8 <sx1508b_setup_communication+0x24>)
- 80034ba:	6013      	str	r3, [r2, #0]
+ 80034d0:	687b      	ldr	r3, [r7, #4]
+ 80034d2:	681b      	ldr	r3, [r3, #0]
+ 80034d4:	4a03      	ldr	r2, [pc, #12]	; (80034e4 <sx1508b_setup_communication+0x24>)
+ 80034d6:	6013      	str	r3, [r2, #0]
 
 	// TODO: Implement return if successful
 }
- 80034bc:	bf00      	nop
- 80034be:	370c      	adds	r7, #12
- 80034c0:	46bd      	mov	sp, r7
- 80034c2:	f85d 7b04 	ldr.w	r7, [sp], #4
- 80034c6:	4770      	bx	lr
- 80034c8:	20000108 	.word	0x20000108
+ 80034d8:	bf00      	nop
+ 80034da:	370c      	adds	r7, #12
+ 80034dc:	46bd      	mov	sp, r7
+ 80034de:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80034e2:	4770      	bx	lr
+ 80034e4:	20000108 	.word	0x20000108
 
-080034cc <sx1508b_read_pin>:
+080034e8 <sx1508b_read_pin>:
  * reads the value of the specified pin and writes it into the given data buffer
  *
  * @param pinNumber		number of the pin, whose value is read out
  * @param data			buffer where the value of the pin is stored into
  */
 void sx1508b_read_pin(uint8_t pinNumber, uint8_t *data) {
- 80034cc:	b580      	push	{r7, lr}
- 80034ce:	b084      	sub	sp, #16
- 80034d0:	af00      	add	r7, sp, #0
- 80034d2:	4603      	mov	r3, r0
- 80034d4:	6039      	str	r1, [r7, #0]
- 80034d6:	71fb      	strb	r3, [r7, #7]
+ 80034e8:	b580      	push	{r7, lr}
+ 80034ea:	b084      	sub	sp, #16
+ 80034ec:	af00      	add	r7, sp, #0
+ 80034ee:	4603      	mov	r3, r0
+ 80034f0:	6039      	str	r1, [r7, #0]
+ 80034f2:	71fb      	strb	r3, [r7, #7]
 
 	// update the register value
 	uint8_t currentSettings = 0;
- 80034d8:	2300      	movs	r3, #0
- 80034da:	73fb      	strb	r3, [r7, #15]
+ 80034f4:	2300      	movs	r3, #0
+ 80034f6:	73fb      	strb	r3, [r7, #15]
 	sx1508b_comm.read(SX1508B_REG_DATA, &currentSettings, 1);
- 80034dc:	4b0c      	ldr	r3, [pc, #48]	; (8003510 <sx1508b_read_pin+0x44>)
- 80034de:	685b      	ldr	r3, [r3, #4]
- 80034e0:	f107 010f 	add.w	r1, r7, #15
- 80034e4:	2201      	movs	r2, #1
- 80034e6:	2008      	movs	r0, #8
- 80034e8:	4798      	blx	r3
+ 80034f8:	4b0c      	ldr	r3, [pc, #48]	; (800352c <sx1508b_read_pin+0x44>)
+ 80034fa:	685b      	ldr	r3, [r3, #4]
+ 80034fc:	f107 010f 	add.w	r1, r7, #15
+ 8003500:	2201      	movs	r2, #1
+ 8003502:	2008      	movs	r0, #8
+ 8003504:	4798      	blx	r3
 	//TODO: doublecheck if this pointer access is correct
 	*data = (currentSettings & (0b00000000 ^ (0b1 << pinNumber))) >> pinNumber;
- 80034ea:	7bfb      	ldrb	r3, [r7, #15]
- 80034ec:	4619      	mov	r1, r3
- 80034ee:	79fb      	ldrb	r3, [r7, #7]
- 80034f0:	2201      	movs	r2, #1
- 80034f2:	fa02 f303 	lsl.w	r3, r2, r3
- 80034f6:	ea01 0203 	and.w	r2, r1, r3
- 80034fa:	79fb      	ldrb	r3, [r7, #7]
- 80034fc:	fa42 f303 	asr.w	r3, r2, r3
- 8003500:	b2da      	uxtb	r2, r3
- 8003502:	683b      	ldr	r3, [r7, #0]
- 8003504:	701a      	strb	r2, [r3, #0]
+ 8003506:	7bfb      	ldrb	r3, [r7, #15]
+ 8003508:	4619      	mov	r1, r3
+ 800350a:	79fb      	ldrb	r3, [r7, #7]
+ 800350c:	2201      	movs	r2, #1
+ 800350e:	fa02 f303 	lsl.w	r3, r2, r3
+ 8003512:	ea01 0203 	and.w	r2, r1, r3
+ 8003516:	79fb      	ldrb	r3, [r7, #7]
+ 8003518:	fa42 f303 	asr.w	r3, r2, r3
+ 800351c:	b2da      	uxtb	r2, r3
+ 800351e:	683b      	ldr	r3, [r7, #0]
+ 8003520:	701a      	strb	r2, [r3, #0]
 }
- 8003506:	bf00      	nop
- 8003508:	3710      	adds	r7, #16
- 800350a:	46bd      	mov	sp, r7
- 800350c:	bd80      	pop	{r7, pc}
- 800350e:	bf00      	nop
- 8003510:	20000108 	.word	0x20000108
+ 8003522:	bf00      	nop
+ 8003524:	3710      	adds	r7, #16
+ 8003526:	46bd      	mov	sp, r7
+ 8003528:	bd80      	pop	{r7, pc}
+ 800352a:	bf00      	nop
+ 800352c:	20000108 	.word	0x20000108
 
-08003514 <__libc_init_array>:
- 8003514:	b570      	push	{r4, r5, r6, lr}
- 8003516:	4d0d      	ldr	r5, [pc, #52]	; (800354c <__libc_init_array+0x38>)
- 8003518:	4c0d      	ldr	r4, [pc, #52]	; (8003550 <__libc_init_array+0x3c>)
- 800351a:	1b64      	subs	r4, r4, r5
- 800351c:	10a4      	asrs	r4, r4, #2
- 800351e:	2600      	movs	r6, #0
- 8003520:	42a6      	cmp	r6, r4
- 8003522:	d109      	bne.n	8003538 <__libc_init_array+0x24>
- 8003524:	4d0b      	ldr	r5, [pc, #44]	; (8003554 <__libc_init_array+0x40>)
- 8003526:	4c0c      	ldr	r4, [pc, #48]	; (8003558 <__libc_init_array+0x44>)
- 8003528:	f000 f820 	bl	800356c <_init>
- 800352c:	1b64      	subs	r4, r4, r5
- 800352e:	10a4      	asrs	r4, r4, #2
- 8003530:	2600      	movs	r6, #0
- 8003532:	42a6      	cmp	r6, r4
- 8003534:	d105      	bne.n	8003542 <__libc_init_array+0x2e>
- 8003536:	bd70      	pop	{r4, r5, r6, pc}
- 8003538:	f855 3b04 	ldr.w	r3, [r5], #4
- 800353c:	4798      	blx	r3
- 800353e:	3601      	adds	r6, #1
- 8003540:	e7ee      	b.n	8003520 <__libc_init_array+0xc>
- 8003542:	f855 3b04 	ldr.w	r3, [r5], #4
- 8003546:	4798      	blx	r3
- 8003548:	3601      	adds	r6, #1
- 800354a:	e7f2      	b.n	8003532 <__libc_init_array+0x1e>
- 800354c:	080035c4 	.word	0x080035c4
- 8003550:	080035c4 	.word	0x080035c4
- 8003554:	080035c4 	.word	0x080035c4
- 8003558:	080035c8 	.word	0x080035c8
+08003530 <__libc_init_array>:
+ 8003530:	b570      	push	{r4, r5, r6, lr}
+ 8003532:	4d0d      	ldr	r5, [pc, #52]	; (8003568 <__libc_init_array+0x38>)
+ 8003534:	4c0d      	ldr	r4, [pc, #52]	; (800356c <__libc_init_array+0x3c>)
+ 8003536:	1b64      	subs	r4, r4, r5
+ 8003538:	10a4      	asrs	r4, r4, #2
+ 800353a:	2600      	movs	r6, #0
+ 800353c:	42a6      	cmp	r6, r4
+ 800353e:	d109      	bne.n	8003554 <__libc_init_array+0x24>
+ 8003540:	4d0b      	ldr	r5, [pc, #44]	; (8003570 <__libc_init_array+0x40>)
+ 8003542:	4c0c      	ldr	r4, [pc, #48]	; (8003574 <__libc_init_array+0x44>)
+ 8003544:	f000 f820 	bl	8003588 <_init>
+ 8003548:	1b64      	subs	r4, r4, r5
+ 800354a:	10a4      	asrs	r4, r4, #2
+ 800354c:	2600      	movs	r6, #0
+ 800354e:	42a6      	cmp	r6, r4
+ 8003550:	d105      	bne.n	800355e <__libc_init_array+0x2e>
+ 8003552:	bd70      	pop	{r4, r5, r6, pc}
+ 8003554:	f855 3b04 	ldr.w	r3, [r5], #4
+ 8003558:	4798      	blx	r3
+ 800355a:	3601      	adds	r6, #1
+ 800355c:	e7ee      	b.n	800353c <__libc_init_array+0xc>
+ 800355e:	f855 3b04 	ldr.w	r3, [r5], #4
+ 8003562:	4798      	blx	r3
+ 8003564:	3601      	adds	r6, #1
+ 8003566:	e7f2      	b.n	800354e <__libc_init_array+0x1e>
+ 8003568:	080035e0 	.word	0x080035e0
+ 800356c:	080035e0 	.word	0x080035e0
+ 8003570:	080035e0 	.word	0x080035e0
+ 8003574:	080035e4 	.word	0x080035e4
 
-0800355c <memset>:
- 800355c:	4402      	add	r2, r0
- 800355e:	4603      	mov	r3, r0
- 8003560:	4293      	cmp	r3, r2
- 8003562:	d100      	bne.n	8003566 <memset+0xa>
- 8003564:	4770      	bx	lr
- 8003566:	f803 1b01 	strb.w	r1, [r3], #1
- 800356a:	e7f9      	b.n	8003560 <memset+0x4>
+08003578 <memset>:
+ 8003578:	4402      	add	r2, r0
+ 800357a:	4603      	mov	r3, r0
+ 800357c:	4293      	cmp	r3, r2
+ 800357e:	d100      	bne.n	8003582 <memset+0xa>
+ 8003580:	4770      	bx	lr
+ 8003582:	f803 1b01 	strb.w	r1, [r3], #1
+ 8003586:	e7f9      	b.n	800357c <memset+0x4>
 
-0800356c <_init>:
- 800356c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 800356e:	bf00      	nop
- 8003570:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 8003572:	bc08      	pop	{r3}
- 8003574:	469e      	mov	lr, r3
- 8003576:	4770      	bx	lr
+08003588 <_init>:
+ 8003588:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 800358a:	bf00      	nop
+ 800358c:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 800358e:	bc08      	pop	{r3}
+ 8003590:	469e      	mov	lr, r3
+ 8003592:	4770      	bx	lr
 
-08003578 <_fini>:
- 8003578:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 800357a:	bf00      	nop
- 800357c:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 800357e:	bc08      	pop	{r3}
- 8003580:	469e      	mov	lr, r3
- 8003582:	4770      	bx	lr
+08003594 <_fini>:
+ 8003594:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8003596:	bf00      	nop
+ 8003598:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 800359a:	bc08      	pop	{r3}
+ 800359c:	469e      	mov	lr, r3
+ 800359e:	4770      	bx	lr
