@@ -23,7 +23,10 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
-//#include "../../Drivers/max30102/max30102.h"
+#include "stdio.h"
+#include "string.h"
+
+#include "../../Drivers/max30102/max30102.h"
 #include "../../Drivers/max30102/MAX30102.h"
 
 #include "../../Drivers/sx1508b/sx1508b.h"
