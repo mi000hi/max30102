@@ -35,6 +35,8 @@ Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic/hci_tl.o: \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi_ex.h \
+ ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h \
+ ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h \
  ../Core/Inc/custom_errno.h \
  ../Middlewares/ST/BlueNRG-MS/includes/bluenrg_types.h \
  ../Middlewares/ST/BlueNRG-MS/utils/ble_list.h \
@@ -114,6 +116,10 @@ Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic/hci_tl.o: \
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi.h:
 
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi_ex.h:
+
+../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h:
+
+../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h:
 
 ../Core/Inc/custom_errno.h:
 

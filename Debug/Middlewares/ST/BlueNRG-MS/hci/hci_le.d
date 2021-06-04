@@ -38,6 +38,8 @@ Middlewares/ST/BlueNRG-MS/hci/hci_le.o: \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi_ex.h \
+ ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h \
+ ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h \
  ../Core/Inc/custom_errno.h ../Middlewares/ST/BlueNRG-MS/utils/ble_list.h \
  ../BlueNRG_MS/Target/bluenrg_conf.h \
  ../Middlewares/ST/BlueNRG-MS/includes/compiler.h
@@ -119,6 +121,10 @@ Middlewares/ST/BlueNRG-MS/hci/hci_le.o: \
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi.h:
 
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi_ex.h:
+
+../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h:
+
+../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h:
 
 ../Core/Inc/custom_errno.h:
 

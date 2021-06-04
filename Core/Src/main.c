@@ -23,7 +23,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
-#include "../../Drivers/max30102/max30102.h"
+//#include "../../Drivers/max30102/max30102.h"
+#include "../../Drivers/max30102/MAX30102.h"
 
 #include "../../Drivers/sx1508b/sx1508b.h"
 #include "../../Drivers/sx1508b/sx1508b_default.h"
@@ -53,10 +54,14 @@ I2C_HandleTypeDef hi2c3;
 
 SPI_HandleTypeDef hspi2;
 
+UART_HandleTypeDef huart1;
+
 /* USER CODE BEGIN PV */
 
 max30102_t max30102_configs;
-sx1508b_t sx1508b_configs;
+sx1508b_t khc_sx1508b_configs;
+
+char UartBuffer[32];
 
 /* USER CODE END PV */
 
@@ -65,6 +70,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_SPI2_Init(void);
 static void MX_I2C3_Init(void);
+static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* User defined read/write functions for drivers */
@@ -88,6 +94,10 @@ void sx1508b_configure();
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+void UART2_SendString(char *s) {
+	HAL_UART_Transmit(&huart1, (uint8_t*) s, strlen(s), 1000);
+}
 
 /* USER CODE END 0 */
 
@@ -120,39 +130,44 @@ int main(void) {
 	MX_GPIO_Init();
 	MX_SPI2_Init();
 	MX_I2C3_Init();
+	MX_USART1_UART_Init();
 	/* USER CODE BEGIN 2 */
+
+	UART2_SendString("MY OWN STRING\n\r");
 
 	/* Hand-over function pointer for sensor communication */
 	max30102_configs.comm.read = max30102_read;
 	max30102_configs.comm.write = max30102_write;
 	max30102_configs.comm.readInterruptPin = max30102_readInterruptPin;
 
-	sx1508b_configs.comm.read = sx1508b_read;
-	sx1508b_configs.comm.write = sx1508b_write;
+	khc_sx1508b_configs.comm.read = sx1508b_read;
+	khc_sx1508b_configs.comm.write = sx1508b_write;
 
 	/* setup max30102 heart rate sensor */
-	max30102_setup_communication(&max30102_configs);
+//	max30102_setup_communication(&max30102_configs);
 
 	/* setup sx1508b gipo extender and check all configs */
-	sx1508b_setup_communication(&sx1508b_configs);
+	sx1508b_setup_communication(&khc_sx1508b_configs);
 	sx1508b_configure();
 
 	flashLED(100);
 
+	// initialize the MAX30102 HR sensor
+	Max30102_Init(&hi2c3);
+
 	/* read from the FIFO queue */
-	max30102_setMeasurementMode(MAX30102_MODE_HEART_RATE);
-	max30102_setupForMeasurement();
-
-	// measure for one second
-	uint8_t buffer[32] = { 0 };
-	uint32_t endTime = HAL_GetTick() + 1000;
-	while(HAL_GetTick() < endTime) {
-		max30102_waitAndGetHeartrateSamples(buffer);
-	}
-
-	// TODO: convert data to heartrate count
-	// TODO: put sensor back to sleep mode
-
+//	max30102_setMeasurementMode(MAX30102_MODE_HEART_RATE);
+//	max30102_setupForMeasurement();
+//
+//	// measure for one second
+//	uint8_t buffer[32] = { 0 };
+//	uint32_t endTime = HAL_GetTick() + 1000;
+//	while (HAL_GetTick() < endTime) {
+//		max30102_waitAndGetHeartrateSamples(buffer);
+//	}
+//
+//	 // TODO: convert data to heartrate count
+//	 // TODO: put sensor back to sleep mode
 
 	/* USER CODE END 2 */
 
@@ -162,6 +177,14 @@ int main(void) {
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
+
+		Max30102_Task();
+		sprintf(UartBuffer, "%c[2J%c[H", 27, 27);
+		UART2_SendString(UartBuffer);
+
+		sprintf(UartBuffer, "HR: %d\n\rSpO2: %d\n\r", Max30102_GetHeartRate(), Max30102_GetSpO2Value());
+		UART2_SendString(UartBuffer);
+
 	}
 	/* USER CODE END 3 */
 }
@@ -204,7 +227,9 @@ void SystemClock_Config(void) {
 	if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK) {
 		Error_Handler();
 	}
-	PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_I2C3;
+	PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1
+			| RCC_PERIPHCLK_I2C3;
+	PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK2;
 	PeriphClkInit.I2c3ClockSelection = RCC_I2C3CLKSOURCE_PCLK1;
 	if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
 		Error_Handler();
@@ -299,6 +324,39 @@ static void MX_SPI2_Init(void) {
 }
 
 /**
+ * @brief USART1 Initialization Function
+ * @param None
+ * @retval None
+ */
+static void MX_USART1_UART_Init(void) {
+
+	/* USER CODE BEGIN USART1_Init 0 */
+
+	/* USER CODE END USART1_Init 0 */
+
+	/* USER CODE BEGIN USART1_Init 1 */
+
+	/* USER CODE END USART1_Init 1 */
+	huart1.Instance = USART1;
+	huart1.Init.BaudRate = 115200;
+	huart1.Init.WordLength = UART_WORDLENGTH_8B;
+	huart1.Init.StopBits = UART_STOPBITS_1;
+	huart1.Init.Parity = UART_PARITY_NONE;
+	huart1.Init.Mode = UART_MODE_TX_RX;
+	huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+	huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+	huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+	huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+	if (HAL_UART_Init(&huart1) != HAL_OK) {
+		Error_Handler();
+	}
+	/* USER CODE BEGIN USART1_Init 2 */
+
+	/* USER CODE END USART1_Init 2 */
+
+}
+
+/**
  * @brief GPIO Initialization Function
  * @param None
  * @retval None
@@ -309,9 +367,9 @@ static void MX_GPIO_Init(void) {
 	/* GPIO Ports Clock Enable */
 	__HAL_RCC_GPIOG_CLK_ENABLE();
 	HAL_PWREx_EnableVddIO2();
+	__HAL_RCC_GPIOB_CLK_ENABLE();
 	__HAL_RCC_GPIOH_CLK_ENABLE();
 	__HAL_RCC_GPIOC_CLK_ENABLE();
-	__HAL_RCC_GPIOB_CLK_ENABLE();
 	__HAL_RCC_GPIOA_CLK_ENABLE();
 
 	/*Configure GPIO pin Output Level */
