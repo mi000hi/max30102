@@ -181,6 +181,8 @@ int main(void) {
 
 		/* USER CODE BEGIN 3 */
 
+		Max30102_InterruptCallback();
+
 		Max30102_Task();
 		sprintf(UartBuffer, "%c[2J%c[H", 27, 27);
 		UART2_SendString(UartBuffer);

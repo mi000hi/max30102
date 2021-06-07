@@ -205,7 +205,7 @@
 //	Status enum
 //
 typedef enum {
-	MAX30102_ERROR = 0, MAX30102_OK = 1
+	MAX30102_ERROR = 1, MAX30102_OK = 0
 } MAX30102_STATUS;
 
 //
